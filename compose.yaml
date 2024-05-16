@@ -1,0 +1,44 @@
+services:
+  # PHP + Apache
+  php-apache:
+    container_name: php-apache
+    build:
+      dockerfile: Dockerfiles/PhpApache
+    volumes:
+      - ./www:/var/www
+    ports:
+      - 8000:80 # port 8000
+    depends_on:
+      - database
+
+  # database
+  database:
+    container_name: mysql
+    build:
+      dockerfile: Dockerfiles/Database
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: npi_events
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: heslo
+    ports:
+      - 9906:3306
+    volumes:
+      - db_data:/var/lib/mysql
+
+# správa databáze
+  phpmyadmin:
+      container_name: phpmyadmin
+      image: phpmyadmin/phpmyadmin:latest
+      restart: always
+      environment:
+        PMA_HOST: database
+        PMA_USER: admin
+        PMA_PASSWORD: heslo
+      ports:
+        - 9001:80
+      depends_on:
+        - database
+
+volumes:
+  db_data:

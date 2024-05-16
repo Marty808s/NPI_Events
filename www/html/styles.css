@@ -1,0 +1,22 @@
+.panel-footer{
+    position: fixed;
+    padding: 1.2em;
+    background-color:#419ae9;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+   }
+
+.my-navbar-color {
+    background-color: #419ae9;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: #419ae9; 
+}
+
+.form-info {
+    padding: 3px 0px;
+    font-style: italic;
+}

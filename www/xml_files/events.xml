@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<education>
+  <category name="Studia">
+    <course>
+      <nazev>Magisterské studium informatiky</nazev>
+      <datum>2024-09-01</datum>
+      <forma>Prezenční</forma>
+      <lektor>Prof. Dr. Jan Novák</lektor>
+      <anotace>Kurz poskytuje hloubkové znalosti v oblasti informatiky a přípravu na akademickou kariéru.</anotace>
+      <odkaz>https://www.npi.cz/vzdelavani/15-vzdelavaci-programy/84544-ict-koordinator-studium-k-vykonu-specializovane-cinnosti-15</odkaz>
+      <cena>30000</cena>
+    </course>
+
+    <course>
+      <nazev>Magisterské studium polytechniky</nazev>
+      <datum>2024-09-01</datum>
+      <forma>Prezenční</forma>
+      <lektor>Prof. Dr. Jan Novák</lektor>
+      <anotace>Kurz poskytuje hloubkové znalosti v oblasti informatiky a přípravu na akademickou kariéru.</anotace>
+      <odkaz>https://www.npi.cz/vzdelavani/15-vzdelavaci-programy/84544-ict-koordinator-studium-k-vykonu-specializovane-cinnosti-15</odkaz>
+      <cena>30000</cena>
+    </course>
+
+    <course>
+      <nazev>Studium ICT koordinátor</nazev>
+      <datum>2024-09-01</datum>
+      <forma>Prezenční</forma>
+      <lektor>Prof. Dr. Jan Novák</lektor>
+      <anotace>Kurz poskytuje hloubkové znalosti v oblasti informatiky a přípravu na akademickou kariéru.</anotace>
+      <odkaz>https://www.npi.cz/vzdelavani/15-vzdelavaci-programy/84544-ict-koordinator-studium-k-vykonu-specializovane-cinnosti-15</odkaz>
+      <cena>30000</cena>
+    </course>
+
+  </category>
+  <category name="DIGI kurzy">
+    <course>
+      <nazev>Základy digitálního marketingu</nazev>
+      <datum>2024-05-15</datum>
+      <forma>Online</forma>
+      <lektor>MgA. Petra Veselá</lektor>
+      <anotace>Kurz zavádí účastníky do světa digitálního marketingu, včetně SEO a sociálních sítí.</anotace>
+      <odkaz>http://www.digiacademy.cz/kurzy/digitalni-marketing</odkaz>
+      <cena>ZDARMA</cena>
+    </course>
+
+  </category>
+  <category name="Kmenové VP">
+    <course>
+      <nazev>Veřejná správa a regionální rozvoj</nazev>
+      <datum>2024-08-20</datum>
+      <forma>Semestrální</forma>
+      <lektor>Dr. Tomáš Černý</lektor>
+      <anotace>Kurz se zaměřuje na moderní metody a přístupy v oblasti veřejné správy a regionálního rozvoje.</anotace>
+      <odkaz>http://www.vlada.cz/kurzy/verejna-sprava</odkaz>
+      <cena>15000</cena>
+    </course>
+
+    <course>
+      <nazev>Adaptace dítěte v MŠ</nazev>
+      <datum>2024-08-20</datum>
+      <forma>Semestrální</forma>
+      <lektor>Dr. Tomáš Černý</lektor>
+      <anotace>Kurz se zaměřuje na moderní metody a přístupy v oblasti veřejné správy a regionálního rozvoje.</anotace>
+      <odkaz>http://www.vlada.cz/kurzy/verejna-sprava</odkaz>
+      <cena>15000</cena>
+    </course>
+
+  </category>
+</education>
