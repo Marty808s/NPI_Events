@@ -127,7 +127,6 @@ require INC . '/html_nav.php';
 
 <script>
 $(document).ready(function(){
-    // Inicializace datetime pickerů
     $('#datetimepicker-date').datetimepicker({
         format: 'DD/MM/YYYY'
     });
@@ -138,7 +137,6 @@ $(document).ready(function(){
         format: 'HH:mm'
     });
 
-    // Zobrazení a skrytí polí na základě stavu checkboxu
     $('#multi-terms-checkbox').change(function() {
         if($(this).is(':checked')) {
             $('#multi-terms').show();
