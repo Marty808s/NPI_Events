@@ -9,7 +9,7 @@
                         <a class="nav-link active" aria-current="page" href="index.php">Kurzy</a>
                     </li>
                     <li class="nav-item m-3 p-2">
-                        <a class="nav-link active" aria-current="page" href="#">Přidej VP</a>
+                        <a class="nav-link active" aria-current="page" href="add_event.php">Přidej VP</a>
                     </li>
                 </ul>
             </div>
