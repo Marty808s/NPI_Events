@@ -1,27 +1,54 @@
 <?php
 require(__DIR__ . '/../../prolog.php');
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category = $_POST['category-select'];
-    $nazev = $_POST['nazev_VP'];
-    $eduform = $_POST['eduform-select'];
-    $lektor = $_POST['lektor_VP'];
-    $anotace = $_POST['anotace_VP'];
-    $cena = $_POST['cena_VP'];
+    $nazev = trim($_POST['nazev_VP']);
+    $eduform = trim($_POST['eduform-select']);
+    $lektor = trim($_POST['lektor_VP']);
+    $anotace = trim($_POST['anotace_VP']);
+    $cena = trim($_POST['cena_VP']);
 
     if ($cena == '0') {
         $cena = "ZDARMA";
     }
-    $prihlaseni = $_POST['prihlaseni-link'];
+    $prihlaseni = trim($_POST['prihlaseni-link']);
 
     $multi_terms = isset($_POST['multi-terms-checkbox']);
-    $terms_schedule = $_POST['terms-schedule'];
-    $date = $_POST['datetimepicker-date'];
-    $time_start = $_POST['datetimepicker-time-start'];
-    $time_end = $_POST['datetimepicker-time-end'];
+    $terms_schedule = trim($_POST['terms-schedule']);
+    $date = trim($_POST['datetimepicker-date']);
+    $time_start = trim($_POST['datetimepicker-time-start']);
+    $time_end = trim($_POST['datetimepicker-time-end']);
 
-    $form_date = $date . " " . $time_start . " - " . $time_end;
+    /*
+        trim() - odebere mezery na konci a na začátku stringu
+        isset() - vraci T/F jestli existuje proměná - je definována
+    */ 
+    
+    $requiredFields = [
+        $nazev, $eduform, $lektor, $anotace, $cena, $prihlaseni
+    ];
+
+    if ($multi_terms) {
+        $requiredFields[] = $terms_schedule;
+    } else {
+        $requiredFields[] = $date;
+        $requiredFields[] = $time_start;
+        $requiredFields[] = $time_end;
+    }
+
+    foreach ($requiredFields as $field) {
+        if (empty($field)) {
+            echo "Všechny položky musí být vyplněny! - Chyba.";
+            exit;
+        }
+    }
+
+    if ($multi_terms) {
+        $form_date = $terms_schedule;
+    } else {
+        $form_date = $date . " " . $time_start . " - " . $time_end;
+    }
 
     // Načtení XML souboru
     $filePath = XML . '/events.xml';
@@ -62,10 +89,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newCourse->appendChild($element);
     }
 
-    // Uložení aktualizovaného XML souboru
-    $dom->save($filePath);
-
-    echo "Vloženo do XML souboru!";
+    // Validace aktualizovaného XML dokumentu proti XSD
+    if ($dom->schemaValidate(XML . '/validate.xsd')) {
+        // Pokud je validní, uložení aktualizovaného XML souboru
+        $dom->save($filePath);
+        echo "Vloženo do XML souboru - XML je valid.";
+    } else {
+        // Pokud není validní, odstraňte nový kurz
+        $categoryElement->removeChild($newCourse);
+        echo "XML je invalid. Proběhne vymazání vloženého kurzu.";
+    }
 } else {
     echo "Formulář nebyl odeslán.";
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="education">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="category" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="course" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="nazev" type="xs:string" minOccurs="1"/>
+                    <xs:element name="datum" type="xs:string" minOccurs="1"/>
+                    <xs:element name="forma" type="xs:string" minOccurs="1"/>
+                    <xs:element name="lektor" type="xs:string" minOccurs="1"/>
+                    <xs:element name="anotace" type="xs:string" minOccurs="1"/>
+                    <xs:element name="odkaz" type="xs:string" minOccurs="1"/>
+                    <xs:element name="cena" type="xs:string" minOccurs="1"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="Studia"/>
+                  <xs:enumeration value="DIGI kurzy"/>
+                  <xs:enumeration value="Kmenové VP"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
