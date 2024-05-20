@@ -50,30 +50,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $form_date = $date . " " . $time_start . " - " . $time_end;
     }
 
-    // Načtení XML souboru
+
+    // Načtení XML souboru - pro všechny VP + Temp file pro validaci
     $filePath = XML . '/events.xml';
-    $dom = new DOMDocument();
-    $dom->preserveWhiteSpace = false;
-    $dom->formatOutput = true;
-    $dom->load($filePath);
+    $tempFilePath = XML. 'temp.xml';
+    
+    // Temp XML file - pro kontrolu
+    $tempDom = new DOMDocument();
+    $tempDom->preserveWhiteSpace = false;
+    $tempDom->formatOutput = true;
+    $tempDom->loadXML('<education></education>');
 
-    // Najít kořenový prvek
-    $root = $dom->documentElement;
+    $newCategory = $tempDom->createElement('category');
+    $newCategory ->setAttribute('name', $category);
+    $newCourse = $tempDom->createElement('course');
 
-    // Najít příslušnou kategorii
-    $categoryElement = null;
-    foreach ($root->getElementsByTagName('category') as $cat) {
-        if ($cat->getAttribute('name') === $category) {
-            $categoryElement = $cat;
-            break;
-        }
-    }
-
-    // Vytvoření nového kurzu
-    $newCourse = $dom->createElement('course');
-    $categoryElement->appendChild($newCourse);
-
-    // Přidání jednotlivých prvků kurzu
+    // Definnování elementů
     $elements = [
         'nazev' => $nazev,
         'datum' => $form_date,
@@ -85,21 +77,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ];
 
     foreach ($elements as $tag => $value) {
-        $element = $dom->createElement($tag, $value);
+        $element = $tempDom->createElement($tag, $value);
         $newCourse->appendChild($element);
     }
 
-    // Validace aktualizovaného XML dokumentu proti XSD
-    if ($dom->schemaValidate(XML . '/validate.xsd')) {
-        // Pokud je validní, uložení aktualizovaného XML souboru
-        $dom->save($filePath);
-        echo "Vloženo do XML souboru - XML je valid.";
-    } else {
-        // Pokud není validní, odstraňte nový kurz
-        $categoryElement->removeChild($newCourse);
-        echo "XML je invalid. Proběhne vymazání vloženého kurzu.";
+    $newCategory->appendChild($newCourse);
+    $tempDom->documentElement->appendChild($newCategory);
+
+   // Validace Temp souboru s XSD - pokud OK, tak přidávám do events.xml
+   if ($tempDom->schemaValidate(XML . '/validate.xsd')) {
+    $dom = new DOMDocument();
+    $dom->preserveWhiteSpace = false;
+    $dom->formatOutput = true;
+    $dom->load($filePath);
+
+    // Najdu element příslušné kategorie - pak do něj importuju Node z Tempu
+    $categoryElement = null;
+    foreach ($dom->getElementsByTagName('category') as $cat) {
+        if ($cat->getAttribute('name') === $category) {
+            $categoryElement = $cat;
+            break;
+        }
     }
+
+    // Importování Node
+    $importedNode = $dom->importNode($newCourse, true);
+    $categoryElement->appendChild($importedNode);
+    $dom->save(XML . '/events.xml');
+    echo "Vloženo do XML souboru - XML je valid.";
+
 } else {
-    echo "Formulář nebyl odeslán.";
+    //$tempDom ->save($tempFilePath);
+    //file_put_contents($tempFilePath, ''); <- vymaže následně obsah tempu
+    echo "XML je invalid. Změny nebyly provedeny.";
+    }
 }
 ?>
