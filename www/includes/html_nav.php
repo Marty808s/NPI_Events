@@ -11,6 +11,9 @@
                     <li class="nav-item m-3 p-2">
                         <a class="nav-link active" aria-current="page" href="add_event.php">Přidej VP</a>
                     </li>
+                    <li class="nav-item m-3 p-2">
+                        <a class="nav-link active" aria-current="page" href="login.php">Přihlaste se</a>
+                    </li>
                 </ul>
             </div>
         </div>
