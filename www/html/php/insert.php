@@ -1,6 +1,7 @@
 <?php
 require(__DIR__ . '/../../prolog.php');
 
+// Získám vstupy z formulářů - 'Přidej VP'
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category = $_POST['category-select'];
     $nazev = trim($_POST['nazev_VP']);
@@ -12,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($cena == '0') {
         $cena = "ZDARMA";
     }
-    $prihlaseni = trim($_POST['prihlaseni-link']);
 
+    $prihlaseni = trim($_POST['prihlaseni-link']);
     $multi_terms = isset($_POST['multi-terms-checkbox']);
     $terms_schedule = trim($_POST['terms-schedule']);
     $date = trim($_POST['datetimepicker-date']);
@@ -25,6 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         isset() - vraci T/F jestli existuje proměnná - je definována
     */ 
     
+    
+    // Kontrola ze strany serveru - zda ve všech možnostech byly vyplněny pole
     $requiredFields = [
         $nazev, $eduform, $lektor, $anotace, $cena, $prihlaseni
     ];
@@ -37,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $requiredFields[] = $time_end;
     }
 
+    // Kontrola stavu
     foreach ($requiredFields as $field) {
         if (empty($field)) {
             echo "Všechny položky musí být vyplněny! - Chyba.";
@@ -45,8 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($multi_terms) {
+        // Přiřadím date - mám textové pole - rozpis termínů
         $form_date = $terms_schedule;
     } else {
+        // Přiřadím date - spojím jednotlivé pickery
         $form_date = $date . " " . $time_start . " - " . $time_end;
     }
 
@@ -59,10 +65,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tempDom = new DOMDocument();
     $tempDom->preserveWhiteSpace = false;
     $tempDom->formatOutput = true;
+
+    // Nahrání kořenu - 'element' tag
     $tempDom->loadXML('<education></education>');
 
+    // Element - 'category'
     $newCategory = $tempDom->createElement('category');
+    // Následně přidám atribut s hodnotou kategorie z formu
     $newCategory ->setAttribute('name', $category);
+    // Vytvořím element 'course'
     $newCourse = $tempDom->createElement('course');
 
     // Definnování elementů
@@ -76,11 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'cena' => $cena
     ];
 
+    // Do tempu ahraju elementy i s hodnotami - přidám jako potomka do elementu 'course'
     foreach ($elements as $tag => $value) {
         $element = $tempDom->createElement($tag, $value);
         $newCourse->appendChild($element);
     }
 
+    // Přidání poromka
     $newCategory->appendChild($newCourse);
     $tempDom->documentElement->appendChild($newCategory);
 
