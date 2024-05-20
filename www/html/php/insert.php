@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     /*
         trim() - odebere mezery na konci a na začátku stringu
-        isset() - vraci T/F jestli existuje proměná - je definována
+        isset() - vraci T/F jestli existuje proměnná - je definována
     */ 
     
     $requiredFields = [
