@@ -15,6 +15,7 @@ $events = getEvents();
                 <th>Datum</th>
                 <th>Lektor</th>
                 <th>Cena</th>
+                <th>Forma</th>
                 <th>Akce</th>
             </tr>
         </thead>
@@ -26,11 +27,12 @@ $events = getEvents();
             echo "<td>" . htmlspecialchars($event['datum']) . "</td>";
             echo "<td>" . htmlspecialchars($event['lektor']) . "</td>"; // Zobrazení lektora
             echo "<td>" . htmlspecialchars($event['cena']) . "</td>";
+            echo "<td>" . htmlspecialchars($event['forma']) . "</td>";
             
             echo "<td>";
             // Přidání tlačítek Bootstrap s třídami pro styl
             echo "<a href='edit_event.php?id=" . htmlspecialchars($event['id']) . "' class='btn btn-primary btn-sm'>Editovat</a> ";
-            echo "<a href='/delete_event.php?id=" . htmlspecialchars($event['id']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Opravdu chcete smazat tuto událost?\");'>Smazat</a>";
+            echo "<a href='delete_event.php?id=" . htmlspecialchars($event['id']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Opravdu chcete smazat tuto událost?\");'>Smazat</a>";
             echo "</td>";
             echo "</tr>";
         }

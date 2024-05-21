@@ -56,7 +56,7 @@ require INC . '/html_nav.php';
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="cena_VP">Zadejte cenu kurzu:</label>
-                    <input type="number" class="form-control" id="cena_VP" name="cena_VP" placeholder="Zadejte cenu kurzu" min="0" step="1000">
+                    <input type="number" class="form-control" id="cena_VP" name="cena_VP" placeholder="Zadejte cenu kurzu" min="0" step="1">
                 </div>
             </div>
             <div class="col-md-6">

@@ -47,7 +47,7 @@ if (isset($_GET['id'])){
         echo "Nastala chyba při mazání události.";
     }
 
-    header("Location: ../manage_events.php");
+    header("Location: /manage_events.php");
     exit;
 
 }
