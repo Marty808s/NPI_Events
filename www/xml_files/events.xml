@@ -11,13 +11,13 @@
       <cena>30000</cena>
     </course>
     <course>
-      <nazev>Testovačka Oprava</nazev>
+      <nazev>Testovačka Oprava2</nazev>
       <datum>18/05/2024 15:09 - 23:04</datum>
-      <forma>Prezenční</forma>
+      <forma>Online</forma>
       <lektor>pavel malý</lektor>
-      <anotace>Tenhle kurz bude bomba - oprava</anotace>
-      <odkaz>odkaz oprava</odkaz>
-      <cena>10000</cena>
+      <anotace>Tenhle kurz bude bomba - oprava2</anotace>
+      <odkaz>odkaz oprava2</odkaz>
+      <cena>10001</cena>
     </course>
   </category>
   <category name="DIGI kurzy">
