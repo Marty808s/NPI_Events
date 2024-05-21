@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . '/../../prolog.php');
+require(PHP . '/db.php');
 
 // Získám vstupy z formulářů - 'Přidej VP'
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -10,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $anotace = trim($_POST['anotace_VP']);
     $cena = trim($_POST['cena_VP']);
 
+    // Možná nechat 0 - ale až při interpretaci na webu? - aby XSD bylo xs:string?
     if ($cena == '0') {
         $cena = "ZDARMA";
     }
@@ -34,10 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($multi_terms) {
         $requiredFields[] = $terms_schedule;
+        print_r($requiredFields);
     } else {
         $requiredFields[] = $date;
         $requiredFields[] = $time_start;
         $requiredFields[] = $time_end;
+        print_r($requiredFields);
     }
 
     // Kontrola stavu
@@ -113,11 +117,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Importování Node
+    // Importování Node do DOM events.xml
     $importedNode = $dom->importNode($newCourse, true);
     $categoryElement->appendChild($importedNode);
     $dom->save(XML . '/events.xml');
     echo "Vloženo do XML souboru - XML je valid.";
+
+    // Vložeí do DB - jen po validaci!
+    if (addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena)) {
+        echo "Událost byla úspěšně vložena do databáze.";
+    } else {
+        echo "Nastala chyba při vkládání události.";
+    }
 
 } else {
     //$tempDom ->save($tempFilePath);

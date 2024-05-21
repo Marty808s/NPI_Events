@@ -4,28 +4,40 @@ require INC . '/html_base.php';
 require INC . '/html_nav.php';
 require PHP . '/db.php';
 
-// Načtení event.xml - DOM soubor
-$dom = new DOMDocument();
-$dom->load(XML . '/events.xml');
+$events = getEvents();
 
-$id_query = dbQuery("SELECT * FROM `events`;");
-
-
-function getIdEvent()
-{
-    global $db_conn; 
-
-    $id_query = dbQuery("SELECT `id` FROM `events`;");
-
-    if ($id_query instanceof mysqli_result) {
-        while ($row = $id_query->fetch_assoc()) {
-            echo 'ID: ' . htmlspecialchars($row['id']) . '<br>';
+?>
+<div class="container mt-5">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Název</th>
+                <th>Datum</th>
+                <th>Lektor</th>
+                <th>Cena</th>
+                <th>Akce</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($events as $event) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($event['nazev']) . "</td>";
+            echo "<td>" . htmlspecialchars($event['datum']) . "</td>";
+            echo "<td>" . htmlspecialchars($event['lektor']) . "</td>"; // Zobrazení lektora
+            echo "<td>" . htmlspecialchars($event['cena']) . "</td>";
+            
+            echo "<td>";
+            // Přidání tlačítek Bootstrap s třídami pro styl
+            echo "<a href='edit_event.php?id=" . htmlspecialchars($event['id']) . "' class='btn btn-primary btn-sm'>Editovat</a> ";
+            echo "<a href='/delete_event.php?id=" . htmlspecialchars($event['id']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Opravdu chcete smazat tuto událost?\");'>Smazat</a>";
+            echo "</td>";
+            echo "</tr>";
         }
-    } else {
-        echo "Chyba při dotazu na databázi.";
-    }
-}
+        ?>
+        </tbody>
+    </table>
+</div>
 
-getIdEvent();
-
+<?php
 require INC . '/html_footer.php';
