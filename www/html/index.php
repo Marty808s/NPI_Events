@@ -63,5 +63,4 @@ echo '<hr>';
 echo '</div>';
 
 require INC . '/html_footer.php';
-
 ?>

@@ -3,7 +3,7 @@ require '../prolog.php';
 require INC . '/html_base.php';
 require INC . '/html_nav.php';
 require PHP . '/db.php';
-
+require PHP . '/boxes.php';
 
 if (isset($_GET['id'])){
     $eventId = $_GET['id'];
@@ -14,7 +14,6 @@ if (isset($_GET['id'])){
     if ($eventData){
         //print_r($eventData);
     ?>
-
     <div class="container mt-5">
         <form method="post" action="edit_event.php">
             <div class="row">
@@ -73,8 +72,8 @@ if (isset($_GET['id'])){
     </div>
 
 <?php
-    }else{
-        echo "Něco se nepovedlo - databáze nenašla kurz";
+    }else {
+        errorBox("Kurz který chcete upravit není v DB");
     }
 }
 
@@ -116,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             //echo $c_datum->nodeValue;
 
             if ($c_nazev->nodeValue === $eventData[0]['nazev'] && $c_datum->nodeValue === $eventData[0]['datum'] ) {
-                echo "Našel jsem kurz!";
+                //echo "Našel jsem kurz!";
                 $c_nazev->nodeValue = $nazev;
                 $c_datum->nodeValue = $datum;
                 $course->getElementsByTagName('forma')->item(0)->nodeValue = $eduform;
@@ -128,7 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $update = updateEvent($eventId, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena);
 
                 if ($update){
-                    echo "DB byla aktualizovaná";
+                    successBox("Došlo k aktualizaci záznamu [DB i XML]");
+                }else{
+                    errorBox("Došlo k chybě při aktualizaci");
                 }
 
                 $dom->save($filePath);
@@ -137,5 +138,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }
 require INC . '/html_footer.php';
-
 ?>
