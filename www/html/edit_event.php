@@ -98,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $odkaz = trim($_POST['odkaz_VP']);
 
-    //updateEvent($eventId, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena);
 
     // Načtení DOM souvoru - events.xml
     $filePath = XML . '/events.xml';

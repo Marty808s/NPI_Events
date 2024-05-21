@@ -9,8 +9,9 @@ $database = "npi_events";
 // Připojení na DB - working
 $db_conn = new mysqli($servername, $username, $password, $database);
 
+
 function dbQuery($sql, $params = []) {
-    global $db_conn; // Předpokládá se, že $db_conn je aktivní mysqli spojení
+    global $db_conn;
 
     $stmt = $db_conn->prepare($sql);
     if (!$stmt) {
@@ -30,26 +31,23 @@ function dbQuery($sql, $params = []) {
 
     $result = $stmt->get_result();
     if ($result) {
-        return $result->fetch_all(MYSQLI_ASSOC); // Vrací všechny záznamy jako asociativní pole
+        return $result->fetch_all(MYSQLI_ASSOC); 
     } else {
-        return []; // Vrátí prázdné pole, pokud nebyly žádné záznamy
+        return []; 
     }
 }
 
 
 function getEvents()
 {
-    global $db_conn;  // Globální přístup k databázovému spojení
+    global $db_conn;
 
-    // Získáme výsledky z databáze
-    $events = dbQuery("SELECT * FROM events;");  // Odstranění nepotřebných zpětných apostrofů
-    
-    // Kontrola, zda query vrátila nějaké výsledky
+    $events = dbQuery("SELECT * FROM events;"); 
+
     if ($events) {
-        return $events; // Vrátíme přímo výsledek, který je pole asociativních polí
+        return $events;
     } else {
-        // Možné zpracování prázdného výsledku
-        return [];  // Vracíme prázdné pole, pokud nebyly nalezeny žádné události
+        return [];
     }
 }
 
@@ -71,7 +69,7 @@ function addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $p
     $sql = "INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [$category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena];
 
-    // Funkce dbQuery je již upravena pro práci s prepared statements
+    // Funkce dbQuery
     $result = dbQuery($sql, $params);
     if ($result === false) {
         error_log("Nepodařilo se vložit událost do databáze.");
@@ -80,6 +78,7 @@ function addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $p
 
     return true; // Vrací true, pokud byl dotaz úspěšně proveden
 }
+
 
 function updateEvent($id, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena){
     $sql = "UPDATE events SET nazev = ?, datum = ?, forma = ?, lektor = ?, anotace = ?, odkaz = ?, cena = ? WHERE id = ?";
