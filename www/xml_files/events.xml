@@ -11,13 +11,13 @@
       <cena>30000</cena>
     </course>
     <course>
-      <nazev>test</nazev>
-      <datum>test</datum>
+      <nazev>Testovačka Oprava</nazev>
+      <datum>18/05/2024 15:09 - 23:04</datum>
       <forma>Prezenční</forma>
-      <lektor>test</lektor>
-      <anotace>test</anotace>
-      <odkaz>test</odkaz>
-      <cena>ZDARMA</cena>
+      <lektor>pavel malý</lektor>
+      <anotace>Tenhle kurz bude bomba - oprava</anotace>
+      <odkaz>odkaz oprava</odkaz>
+      <cena>10000</cena>
     </course>
   </category>
   <category name="DIGI kurzy">
@@ -41,6 +41,5 @@
       <odkaz>http://www.vlada.cz/kurzy/adaptacevMS</odkaz>
       <cena>15000</cena>
     </course>
-    
   </category>
 </education>

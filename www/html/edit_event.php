@@ -4,8 +4,11 @@ require INC . '/html_base.php';
 require INC . '/html_nav.php';
 require PHP . '/db.php';
 
+
 if (isset($_GET['id'])){
     $eventId = $_GET['id'];
+    $_SESSION['eventId'] = $eventId;
+
     $eventData = getEventById($eventId);
 
     if ($eventData){
@@ -13,7 +16,7 @@ if (isset($_GET['id'])){
     ?>
 
     <div class="container mt-5">
-        <form method="post" action="/edit_event.php">
+        <form method="post" action="edit_event.php">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -34,13 +37,14 @@ if (isset($_GET['id'])){
                     </div>
                     <div class="form-group">
                         <label for="cena_VP">Cena kurzu:</label>
+
                         <?php
                             $cena = htmlspecialchars($eventData[0]['cena']);
                             if ($cena === "ZDARMA"){
                                 $cena=0;
                             }
-                            echo "<input type='number'class='form-control' id='cena_VP' name='cena_VP' value='$cena' min='0' step='1' required>
-"                        ?>
+                            echo "<input type='number'class='form-control' id='cena_VP' name='cena_VP' value='$cena' min='0' step='1' required>"
+                         ?>
                     
                     </div>
                 </div>
@@ -75,8 +79,64 @@ if (isset($_GET['id'])){
 }
 
 //Logika
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
+    $eventId = $_SESSION['eventId'];
+    $eventData = getEventById($eventId);
 
+    // Získám vstupy z formuláře
+    $nazev = trim($_POST['nazev_VP']);
+    $datum = trim($_POST['datum_VP']);
+    $eduform = trim($_POST['eduform-select']);
+    $lektor = trim($_POST['lektor_VP']);
+    $anotace = trim($_POST['anotace_VP']);
+    $cena = trim($_POST['cena_VP']);
+
+    if ($cena == '0') {
+        $cena = "ZDARMA";
+    }
+
+    $odkaz = trim($_POST['odkaz_VP']);
+
+    //updateEvent($eventId, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena);
+
+    // Načtení DOM souvoru - events.xml
+    $filePath = XML . '/events.xml';
+    $dom = new DOMDocument();
+    $dom->preserveWhiteSpace = false;
+    $dom->formatOutput = true;
+    $dom->load($filePath);
+
+    $categories = $dom->getElementsByTagName('category');
+    foreach ($categories as $category) {
+        $courses = $category->getElementsByTagName('course');
+        foreach ($courses as $course) {
+            $c_nazev = $course->getElementsByTagName('nazev')->item(0);
+            //echo $c_nazev->nodeValue;
+            $c_datum = $course->getElementsByTagName('datum')->item(0);
+            //echo $c_datum->nodeValue;
+
+            if ($c_nazev->nodeValue === $eventData[0]['nazev'] && $c_datum->nodeValue === $eventData[0]['datum'] ) {
+                echo "Našel jsem kurz!";
+                $c_nazev->nodeValue = $nazev;
+                $c_datum->nodeValue = $datum;
+                $course->getElementsByTagName('forma')->item(0)->nodeValue = $eduform;
+                $course->getElementsByTagName('anotace')->item(0)->nodeValue = $anotace;
+                $course->getElementsByTagName('odkaz')->item(0)->nodeValue = $odkaz;
+                $course->getElementsByTagName('cena')->item(0)->nodeValue = $cena;
+
+                // AKtualizace DB
+                $update = updateEvent($eventId, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena);
+
+                if ($update){
+                    echo "DB byla aktualizovaná";
+                }
+
+                $dom->save($filePath);
+            }
+        }
+    }
+}
 require INC . '/html_footer.php';
-?>
 
+?>

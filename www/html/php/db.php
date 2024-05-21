@@ -81,6 +81,19 @@ function addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $p
     return true; // Vrací true, pokud byl dotaz úspěšně proveden
 }
 
+function updateEvent($id, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena){
+    $sql = "UPDATE events SET nazev = ?, datum = ?, forma = ?, lektor = ?, anotace = ?, odkaz = ?, cena = ? WHERE id = ?";
+    $params = [$nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena, $id];
+
+    $result = dbQuery($sql, $params);
+    if ($result === false) {
+        error_log("Nepodařilo se vložit událost do databáze.");
+        return false;
+    }
+    return true; // Vrací true, pokud byl dotaz úspěšně proveden
+}
+
+
 
 // Dodělat EscapeDB - retězce pro SQL - ochrana!...
 ?>
