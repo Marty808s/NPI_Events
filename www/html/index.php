@@ -1,4 +1,5 @@
 <?php
+// TO:DO - v jedotlivých divech přepsan na course -> element -> item(0) -> nodeValue
 require '../prolog.php';
 require INC . '/html_base.php';
 require INC . '/html_nav.php';
