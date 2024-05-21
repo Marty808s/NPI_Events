@@ -199,6 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($requiredFields as $field) {
         if (empty($field)) {
             errorBox("Všechny pole musí být vyplněny!!");
+            require INC . '/html_footer.php';
             exit;
         }
     }
