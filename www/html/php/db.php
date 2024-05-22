@@ -103,6 +103,6 @@ function updateEvent($id, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $
 }
 
 
-
+// Přidat Hashování - ne plain text
 // Dodělat EscapeDB - retězce pro SQL - ochrana!...
 ?>
