@@ -278,8 +278,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Vložeí do DB - jen po validaci!
     if (addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena)) {
         successBox("Kurz je zapsaný v DB!");
+        echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
     } else {
         errorBox("Došlo k chybě ze strany DB!");
+        echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
     }
 
 } else {

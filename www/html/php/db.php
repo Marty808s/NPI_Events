@@ -9,7 +9,6 @@ $database = "npi_events";
 // Připojení na DB - working
 $db_conn = new mysqli($servername, $username, $password, $database);
 
-
 function dbQuery($sql, $params = []) {
     global $db_conn;
 
@@ -34,6 +33,17 @@ function dbQuery($sql, $params = []) {
         return $result->fetch_all(MYSQLI_ASSOC); 
     } else {
         return []; 
+    }
+}
+
+
+function authUser($jmeno,$heslo){
+    $result = dbQuery("select id from uzivatele where jmeno=? and heslo=?",[$jmeno,$heslo]);
+
+    if ($result){
+        return True;
+    }else{
+        return False;
     }
 }
 
