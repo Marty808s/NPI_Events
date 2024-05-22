@@ -44,7 +44,7 @@ http://localhost:9001/ -> phpMyAdmin
 http://localhost:9006/
 
 
-### Přihlašovací údaje do aplikace:**
+### Přihlašovací údaje do aplikace:
 Ve fromátu **jmeno : heslo**
 - pepa : pepa
 - alena : heslo
