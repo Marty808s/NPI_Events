@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($passwd !== $passwd2) { // pokud se obě hesla neshodují, tak je konec
             errorBox("Hesla se neshodují!");
+            require INC . '/html_footer.php';
             exit;
         }
 

@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 if ($update){
                     successBox("Došlo k aktualizaci záznamu [DB i XML]");
-                    echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
+                    echo "<script>setTimeout(function() { window.location.href = '/manage.php'; }, 1000);</script>";
                 }else{
                     errorBox("Došlo k chybě při aktualizaci");
                 }

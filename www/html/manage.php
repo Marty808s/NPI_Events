@@ -81,7 +81,7 @@ if (isset($_GET['id'])){
 
         if (deleteCourseFromXML($dom, $courseName, $courseDate)) {
             successBox("Vymazání proběhlo úspěšně!");
-            echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
+            echo "<script>setTimeout(function() { window.location.href = '/manage.php'; }, 1000);</script>";
         } else {
             errorBox("Nastala chyba při mazání!");
             echo "<script>setTimeout(function() { window.location.href = '/manage.php'; }, 1000);</script>";
