@@ -102,7 +102,7 @@ function updateEvent($id, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $
     }
     return true; // Vrací true, pokud byl dotaz úspěšně proveden
 }
-2
+
 
 // přidej usera / registruj ho
 function registerUser($username, $hashedPassword) {
