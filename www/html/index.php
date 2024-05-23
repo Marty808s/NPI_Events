@@ -4,7 +4,6 @@ require '../prolog.php';
 require INC . '/html_base.php';
 require INC . '/html_nav.php';
 require PHP . '/boxes.php';
-
 ?>
 
 <div class="container mt-5">

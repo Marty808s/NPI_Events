@@ -15,9 +15,9 @@ CREATE TABLE `uzivatele` (
 );
 
 INSERT INTO `uzivatele` (`id`, `jmeno`, `heslo`) VALUES
-(1, 'pavel', 'pavel'),
-(2, 'alena', 'heslo'),
-(3, 'petr', '12345');
+(4, 'uzivatel1', '$2y$10$EwvOmwHxHmTErmfMeLRRv.QUMNpSURNZNaZ8RLLuP7fPr6E/i0E7y'),
+(2, 'admin', '$2y$10$0FjgB2L0J20NYdLzBczf/.lCOac6yYdYpjR0AB8C2i2x8enxfqHOi');
+
 
 -- Tabulka eventů
 DROP TABLE IF EXISTS `events`;
