@@ -93,6 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["xmlFile"])) {
     } else {
         errorBox("Nastala chyba při nahrávání souboru.");
     }
-
 }
 
+require INC . '/html_footer.php';

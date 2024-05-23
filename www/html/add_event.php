@@ -6,7 +6,7 @@ require PHP . '/db.php';
 require PHP . '/boxes.php';
 ?>
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <form method="post" action="add_event.php">
         <div class="row">
             <div class="col-md-6">
@@ -117,7 +117,7 @@ require PHP . '/boxes.php';
             </div>
         </div>
 
-        <div class="row">
+        <div class="row md-5">
             <div class="col-md-12">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Vložit VP</button>
@@ -274,11 +274,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $importedNode = $dom->importNode($newCourse, true);
     $categoryElement->appendChild($importedNode);
     $dom->save(XML . '/events.xml');
-    successBox("Validace OK! - kurz je zapsaný v XML");
 
     // Vložeí do DB - jen po validaci!
     if (addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena)) {
-        successBox("Kurz je zapsaný v DB!");
+        successBox("Kurz je úspěšně vytvořen!");
         echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
     } else {
         errorBox("Došlo k chybě ze strany DB!");
@@ -292,5 +291,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-require INC . '/html_footer.php';
 ?>

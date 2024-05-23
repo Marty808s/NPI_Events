@@ -90,11 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $lektor = trim($_POST['lektor_VP']);
     $anotace = trim($_POST['anotace_VP']);
     $cena = trim($_POST['cena_VP']);
-
-    if ($cena == '0') {
-        $cena = "ZDARMA";
-    }
-
     $odkaz = trim($_POST['odkaz_VP']);
 
 
