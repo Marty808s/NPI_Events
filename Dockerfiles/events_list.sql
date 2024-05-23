@@ -30,7 +30,7 @@ CREATE TABLE `events` (
   `lektor` varchar(255) NOT NULL,
   `anotace` varchar(10000) NOT NULL,
   `odkaz` varchar(255) NOT NULL,
-  `cena` varchar(64),
+  `cena` int,
   `zobrazeno` int unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
@@ -42,7 +42,7 @@ INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena
 
 -- DIGI kurzy
 INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena) VALUES
-('DIGI kurzy', 'Základy digitálního marketingu', '2024-05-15', 'Online', 'MgA. Petra Veselá', 'Kurz zavádí účastníky do světa digitálního marketingu, včetně SEO a sociálních sítí.', 'http://www.digiacademy.cz/kurzy/digitalni-marketing', "ZDARMA");
+('DIGI kurzy', 'Základy digitálního marketingu', '2024-05-15', 'Online', 'MgA. Petra Veselá', 'Kurz zavádí účastníky do světa digitálního marketingu, včetně SEO a sociálních sítí.', 'http://www.digiacademy.cz/kurzy/digitalni-marketing', 0);
 
 -- Kmenové VP
 INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena) VALUES

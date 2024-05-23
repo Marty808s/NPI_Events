@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<education>
+    <category name="DIGI kurzy">
+        <course>
+            <nazev>Úvod do programování v Pythonu</nazev>
+            <datum>2023-11-01</datum>
+            <forma>Prezenční</forma>
+            <lektor>Maria Černá</lektor>
+            <anotacee>Intenzivní workshop zaměřený na základy programování v Pythonu, vhodný pro úplné začátečníky.</anotacee>
+            <odkaz>http://www.example.com/python</odkaz>
+            <cena>ZDARMA</cena>
+        </course>
+    </category>
+</education>

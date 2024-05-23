@@ -15,7 +15,7 @@
                     <xs:element name="lektor" type="xs:string" minOccurs="1"/>
                     <xs:element name="anotace" type="xs:string" minOccurs="1"/>
                     <xs:element name="odkaz" type="xs:string" minOccurs="1"/>
-                    <xs:element name="cena" type="xs:string" minOccurs="1"/>
+                    <xs:element name="cena" type="xs:int" minOccurs="1"/>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>

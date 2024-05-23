@@ -162,11 +162,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $anotace = trim($_POST['anotace_VP']);
     $cena = trim($_POST['cena_VP']);
 
-    // Možná nechat 0 - ale až při interpretaci na webu? - aby XSD bylo xs:string?
-    if ($cena == '0') {
-        $cena = "ZDARMA";
-    }
-
     $prihlaseni = trim($_POST['prihlaseni-link']);
     $multi_terms = isset($_POST['multi-terms-checkbox']);
     $terms_schedule = trim($_POST['terms-schedule']);
@@ -179,10 +174,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         isset() - vraci T/F jestli existuje proměnná - je definována
     */ 
     
+    // Kvůli tomu že int 0 bere na empty TRUE...
+    if (!isset($cena) || $cena === '') {
+        errorBox("Cena musí být vyplněna!");
+        require INC . '/html_footer.php';
+        exit;
+    }
     
     // Kontrola ze strany serveru - zda ve všech možnostech byly vyplněny pole
     $requiredFields = [
-        $nazev, $eduform, $lektor, $anotace, $cena, $prihlaseni
+        $nazev, $eduform, $lektor, $anotace, $prihlaseni
     ];
 
     if ($multi_terms) {

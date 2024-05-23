@@ -13,8 +13,14 @@
                 </li>
 
                 <?php if (isUser()): ?>
-                <li class="nav-item m-3 p-2">
-                    <a class="nav-link" href="add_event.php">Přidej VP</a>
+                <li class="nav-item dropdown m-3 p-2">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Přidej VP
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="add_event.php">Formulářem</a>
+                        <a class="dropdown-item" href="upload.php">Nahraj XML</a>
+                    </div> 
                 </li>
                 <li class="nav-item m-3 p-2">
                     <a class="nav-link" href="manage.php">Správa kurzů</a>

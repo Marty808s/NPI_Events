@@ -17,8 +17,9 @@
       <lektor>pavel malý</lektor>
       <anotace>test3</anotace>
       <odkaz>weqweqwe</odkaz>
-      <cena>ZDARMA</cena>
+      <cena>0</cena>
     </course>
+    
   </category>
   <category name="DIGI kurzy">
     <course>
@@ -28,8 +29,10 @@
       <lektor>MgA. Petra Veselá</lektor>
       <anotace>Kurz zavádí účastníky do světa digitálního marketingu, včetně SEO a sociálních sítí.</anotace>
       <odkaz>http://www.digiacademy.cz/kurzy/digitalni-marketing</odkaz>
-      <cena>ZDARMA</cena>
+      <cena>0</cena>
     </course>
+    
+    
   </category>
   <category name="Kmenové VP">
     <course>
