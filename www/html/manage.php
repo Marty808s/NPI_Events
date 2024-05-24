@@ -5,9 +5,13 @@ require INC . '/html_nav.php';
 require PHP . '/db.php';
 require PHP . '/boxes.php';
 
+if (!isUser()){
+    echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
+    exit;
+}
 $events = getEvents();
-
 ?>
+
 <div class="container mt-5">
     <table class="table table-striped table-hover">
         <thead>
@@ -17,6 +21,11 @@ $events = getEvents();
                 <th>Lektor</th>
                 <th>Cena</th>
                 <th>Forma</th>
+
+                <?php if (isAdmin()){
+                echo "<th>Organizator</th>";
+                }?>
+                
                 <th>Akce</th>
             </tr>
         </thead>
@@ -29,7 +38,10 @@ $events = getEvents();
             echo "<td>" . htmlspecialchars($event['lektor']) . "</td>";
             echo "<td>" . htmlspecialchars($event['cena']) . "</td>";
             echo "<td>" . htmlspecialchars($event['forma']) . "</td>";
-            
+            if (isAdmin()){
+                echo "<td>" . htmlspecialchars($event['organizator']) . "</td>";
+            }
+
             echo "<td>";
             echo "<a href='edit_event.php?id=" . htmlspecialchars($event['id']) . "' class='btn btn-primary btn-sm'>Editovat</a> ";
             echo "<a href='manage.php?id=" . htmlspecialchars($event['id']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Opravdu chcete smazat tuto událost?\");'>Smazat</a>";

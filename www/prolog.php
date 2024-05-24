@@ -20,3 +20,15 @@ function isUser(): bool
 {
     return isset($_SESSION['jmeno']);
 }
+
+function isAdmin(): bool
+{
+    return $_SESSION['jmeno'] === 'admin';
+}
+
+function getName(): string
+{
+    return $_SESSION['jmeno'];
+}
+
+

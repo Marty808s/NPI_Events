@@ -4,6 +4,11 @@ require INC . '/html_base.php';
 require INC . '/html_nav.php';
 require PHP . '/db.php';
 require PHP . '/boxes.php';
+
+if (!isUser()){
+    echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
+    exit;
+}
 ?>
 
 <div class="container mt-5 mb-5">
@@ -276,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dom->save(XML . '/events.xml');
 
     // Vložeí do DB - jen po validaci!
-    if (addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena)) {
+    if (addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena, getName())) {
         successBox("Kurz je úspěšně vytvořen!");
         echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
     } else {

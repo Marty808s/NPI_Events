@@ -4,6 +4,11 @@ require INC . '/html_base.php';
 require INC . '/html_nav.php';
 require PHP . '/db.php';
 require PHP . '/boxes.php';
+
+if (!isUser()){
+    echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["xmlFile"])) {
 
                 
                 // Volání funkce pro vložení do databáze
-                $result = addEvent($category, $nazev, $datum, $forma, $lektor, $anotace, $odkaz, $cena);
+                $result = addEvent($category, $nazev, $datum, $forma, $lektor, $anotace, $odkaz, $cena, getName());
 
                 if (!$result) {
                     errorBox("Chyba při vkládání kurzu do databáze.");

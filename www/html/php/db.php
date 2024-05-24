@@ -46,14 +46,11 @@ function dbQuery($sql, $params = []) {
 // získej eventy!
 function getEvents()
 {
-    global $db_conn;
-
-    $events = dbQuery("SELECT * FROM events;"); 
-
-    if ($events) {
-        return $events;
-    } else { // pokud nemám výsledek, tak vrátím prázdný seznam
-        return [];
+    // pokud jsem admin dostavu všechny záznamy - od všech userů
+    if (isAdmin()) {
+        return dbQuery("SELECT * FROM events");
+    } else { // pokud ne, tak jen moje kurzy - uživatele
+        return dbQuery("SELECT * FROM events WHERE organizator = ?", [getName()]);
     }
 }
 
@@ -75,9 +72,9 @@ function deleteEventById($id) {
 
 
 // přidej event podle jednotlivých infromací - parametrů
-function addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena) {
-    $sql = "INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    $params = [$category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena];
+function addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena, $organizator) {
+    $sql = "INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena, organizator) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $params = [$category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena, $organizator];
 
     // Funkce dbQuery
     $result = dbQuery($sql, $params);
@@ -142,7 +139,7 @@ function authUser($username, $password) {
     // najdi heslo uzivatele ____
     $stmt = $db_conn->prepare("SELECT heslo FROM uzivatele WHERE jmeno = ?");
     if (!$stmt) {
-        errorBox("Chyba při přípravě dotazu: " . $mysqli->error);
+        errorBox("Chyba při přípravě dotazu: " . $db_conn->error);
         return false;
     }
     $stmt->bind_param('s', $username);
