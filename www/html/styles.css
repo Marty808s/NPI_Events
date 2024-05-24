@@ -1,14 +1,14 @@
 .panel-footer{
     position: fixed;
     padding: 1.2em;
-    background-color:#419ae9;
+    background-color:#8ecaff;
     left: 0;
     bottom: 0;
     width: 100%;
    }
 
 .my-navbar-color {
-    background-color: #419ae9;
+    background-color: #8ecaff;
 }
 
 .form-info {
@@ -38,9 +38,9 @@ footer {
 }
 
 body {
-    padding-bottom: 100px !important; /* Rezerva pro footer */
+    padding-bottom: 50px !important; /* Rezerva pro footer */
 }
 
 .container {
-    padding: 20px !important; /* Přidání paddingu */
+    padding: 10px !important; /* Přidání paddingu */
 }

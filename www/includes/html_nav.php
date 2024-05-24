@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark my-navbar-color">
+<nav class="navbar navbar-expand-lg navbar-light my-navbar-color">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.php">
             <img src="/images/npi_icon.png" alt="NPI Karlovy Vary Logo" height="60" width="89">
