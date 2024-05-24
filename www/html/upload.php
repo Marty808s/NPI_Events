@@ -85,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["xmlFile"])) {
 
             $eventsDOM->save(XML . '/events.xml');
             successBox("Soubor byl úspěšně nahrán a kurzy přidány do příslušných kategorií a databáze.");
+            echo "<script>setTimeout(function() { window.location.href = '/manage.php'; }, 1000);</script>";
 
         } else {
             errorBox("Nahrávaný soubor nevyhovuje požadovanému schématu.");
