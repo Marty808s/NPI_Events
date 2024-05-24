@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["xmlFile"])) {
 
                 
                 // Volání funkce pro vložení do databáze
-                $result = addEvent($category, $nazev, $datum, $forma, $lektor, $anotace, $odkaz, $cena, $_SESSION['jmeno']);
+                $result = addEvent($category, $nazev, $datum, $forma, $lektor, $anotace, $odkaz, $cena);
 
                 if (!$result) {
                     errorBox("Chyba při vkládání kurzu do databáze.");

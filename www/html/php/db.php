@@ -48,11 +48,7 @@ function getEvents()
 {
     global $db_conn;
 
-    if (isAdmin()) { 
-        $events = dbQuery("SELECT * FROM events;");
-    } else {
-        $events = dbQuery("SELECT * FROM events WHERE organizator = ?;", [$_SESSION['jmeno']]);
-    }
+    $events = dbQuery("SELECT * FROM events;"); 
 
     if ($events) {
         return $events;
@@ -79,9 +75,9 @@ function deleteEventById($id) {
 
 
 // přidej event podle jednotlivých infromací - parametrů
-function addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena, $organizator) {
-    $sql = "INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena, organizator) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $params = [$category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena, $organizator];
+function addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena) {
+    $sql = "INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $params = [$category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena];
 
     // Funkce dbQuery
     $result = dbQuery($sql, $params);
@@ -146,7 +142,7 @@ function authUser($username, $password) {
     // najdi heslo uzivatele ____
     $stmt = $db_conn->prepare("SELECT heslo FROM uzivatele WHERE jmeno = ?");
     if (!$stmt) {
-        errorBox("Chyba při přípravě dotazu: " . $db_conn->error);
+        errorBox("Chyba při přípravě dotazu: " . $mysqli->error);
         return false;
     }
     $stmt->bind_param('s', $username);
