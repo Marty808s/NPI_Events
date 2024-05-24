@@ -31,19 +31,20 @@ CREATE TABLE `events` (
   `anotace` varchar(10000) NOT NULL,
   `odkaz` varchar(255) NOT NULL,
   `cena` int,
+  `organizator` varchar(255) NOT NULL,
   `zobrazeno` int unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 
 -- Insert do tabulky events
 -- Studia
-INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena) VALUES
-('Studia', 'Studium ICT koordinátor', '2024-09-01', 'Prezenční', 'Prof. Dr. Jan Novák', 'Kurz poskytuje hloubkové znalosti v oblasti informatiky a přípravu na akademickou kariéru.', 'https://www.npi.cz/vzdelavani/15-vzdelavaci-programy/84544-ict-koordinator-studium-k-vykonu-specializovane-cinnosti-15', 30000);
+INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena, organizator) VALUES
+('Studia', 'Studium ICT koordinátor', '2024-09-01', 'Prezenční', 'Prof. Dr. Jan Novák', 'Kurz poskytuje hloubkové znalosti v oblasti informatiky a přípravu na akademickou kariéru.', 'https://www.npi.cz/vzdelavani/15-vzdelavaci-programy/84544-ict-koordinator-studium-k-vykonu-specializovane-cinnosti-15', 30000, 'admin');
 
 -- DIGI kurzy
-INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena) VALUES
-('DIGI kurzy', 'Základy digitálního marketingu', '2024-05-15', 'Online', 'MgA. Petra Veselá', 'Kurz zavádí účastníky do světa digitálního marketingu, včetně SEO a sociálních sítí.', 'http://www.digiacademy.cz/kurzy/digitalni-marketing', 0);
+INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena, organizator) VALUES
+('DIGI kurzy', 'Základy digitálního marketingu', '2024-05-15', 'Online', 'MgA. Petra Veselá', 'Kurz zavádí účastníky do světa digitálního marketingu, včetně SEO a sociálních sítí.', 'http://www.digiacademy.cz/kurzy/digitalni-marketing', 0, 'admin');
 
 -- Kmenové VP
-INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena) VALUES
-('Kmenové VP', 'Adaptace dítěte v MŠ', '2024-08-20', 'Prezenční', 'Dr. Tomáš Černý', 'Kurz se zaměřuje na moderní metody při adaptaci dítěte v MŠ.', 'http://www.vlada.cz/kurzy/adaptacevMS', 15000);
+INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena, organizator) VALUES
+('Kmenové VP', 'Adaptace dítěte v MŠ', '2024-08-20', 'Prezenční', 'Dr. Tomáš Černý', 'Kurz se zaměřuje na moderní metody při adaptaci dítěte v MŠ.', 'http://www.vlada.cz/kurzy/adaptacevMS', 15000, 'admin');
