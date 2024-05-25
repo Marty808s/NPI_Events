@@ -16,16 +16,23 @@
     font-style: italic;
 }
 
+.card {
+    transition: transform 0.3s ease-in-out;
+}
 
-/* STEJNĚ TO NEFUNGUJE...*/
+.card:hover {
+    transform: scale(1.02); 
+    border: 1px solid #8ecaff;
+}
+
 .alert {
     position: fixed !important;
-    top: 10px !important; /* Můžete upravit pozici podle potřeby */
+    top: 80px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    z-index: 9999 !important; /* Nastavte dostatečně vysokou hodnotu */
-    width: 80% !important; /* Můžete upravit šířku podle potřeby */
-    max-width: 600px !important; /* Maximální šířka */
+    z-index: 9999 !important; 
+    width: 80% !important; 
+    max-width: 600px !important; 
 }
 
 footer {

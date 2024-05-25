@@ -22,11 +22,14 @@
                         <a class="dropdown-item" href="upload.php">Nahraj XML</a>
                     </div> 
                 </li>
-                <li class="nav-item m-3 p-2">
-                    <a class="nav-link" href="manage.php">Správa kurzů</a>
-                </li>
-                <li class="nav-item m-3 p-2">
-                    <a class="nav-link" href="stats.php">Statistika kurzů</a>
+                <li class="nav-item dropdown m-3 p-2">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Správa kurzů
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu2">
+                        <a class="dropdown-item" href="manage.php">Spravování VP</a>
+                        <a class="dropdown-item" href="stats.php">Statistika kurzů</a>
+                    </div> 
                 </li>
                 <li class="nav-item m-3 p-2">
                     <a class="nav-link" href="login.php"><?= "Uživatel: " . htmlspecialchars($_SESSION['jmeno']); ?></a>
