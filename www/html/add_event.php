@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //print_r($requiredFields);
     }
 
-    // Kontrola stavu
+    // Kontrola nevyplněných polí
     foreach ($requiredFields as $field) {
         if (empty($field)) {
             errorBox("Všechny pole musí být vyplněny!!");

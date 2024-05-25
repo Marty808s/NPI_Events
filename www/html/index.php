@@ -1,5 +1,4 @@
 <?php
-// TO:DO - v jedotlivých divech přepsan na course -> element -> item(0) -> nodeValue
 require '../prolog.php';
 require INC . '/html_base.php';
 require INC . '/html_nav.php';
@@ -44,8 +43,15 @@ foreach ($categories as $category) {
         echo "<h6 class='card-subtitle mb-2 text-muted'>" . "Forma:" . " " . $course->getElementsByTagName('forma')[0]->nodeValue . "</h6>";
         echo "</div>";
 
+        // Anotace
         echo "<p class='card-text'>" . $course->getElementsByTagName('anotace')[0]->nodeValue . "</p>";
-        echo "<a href='" . $course->getElementsByTagName('odkaz')[0]->nodeValue . "' class='card-link'><strong>Více informací!</strong></a>";
+
+        // Odkaz
+        $link = $course->getElementsByTagName('odkaz')[0]->nodeValue;
+        echo "<form action='php/onclick.php' method='get'>";
+        echo "<input type='hidden' name='link' value='" . htmlspecialchars($link) . "'>";
+        echo "<button type='submit' class='btn btn-primary'><strong>Více informací!</strong></button>";
+        echo "</form>";
 
         // Kontrola formátu ceny
         $cena = $course->getElementsByTagName('cena')[0]->nodeValue;

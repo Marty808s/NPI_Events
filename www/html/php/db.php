@@ -152,4 +152,44 @@ function authUser($username, $password) {
     return password_verify($password, $hashedPasswordFromDb);
 }
 
+function clickLink($link){
+    global $db_conn;
+    
+    // najdi daný kurz a aktualizuj počet zobrazení
+    $stmt = $db_conn->prepare("UPDATE events SET zobrazeno = zobrazeno + 1 WHERE odkaz = ?");
+    if (!$stmt) {
+        errorBox("Chyba při přípravě dotazu: " . $db_conn->error);
+        return false;
+    }
+    $stmt->bind_param('s', $link);
+    if ($stmt->execute()) {
+        $stmt->close();
+        return true;
+    } else {
+        $stmt->close();
+        return false;
+    }
+}
+
+function generateClicksReportByOrganizer($organizerName) {
+    global $db_conn;
+
+    // příprava SQL dotazu pro získání počtu prokliků na kurzy podle zadaného organizátora
+    $stmt = $db_conn->prepare("SELECT nazev, zobrazeno FROM events WHERE organizator = ? ORDER BY zobrazeno DESC");
+    if (!$stmt) {
+        errorBox("Chyba při přípravě dotazu: " . $db_conn->error);
+        return;
+    }
+    $stmt->bind_param('s', $organizerName);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        return $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        return false;
+    }
+
+}
+
 ?>

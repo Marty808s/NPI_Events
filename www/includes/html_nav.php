@@ -26,6 +26,9 @@
                     <a class="nav-link" href="manage.php">Správa kurzů</a>
                 </li>
                 <li class="nav-item m-3 p-2">
+                    <a class="nav-link" href="stats.php">Statistika kurzů</a>
+                </li>
+                <li class="nav-item m-3 p-2">
                     <a class="nav-link" href="login.php"><?= "Uživatel: " . htmlspecialchars($_SESSION['jmeno']); ?></a>
                 </li>
                 <?php else: ?>
