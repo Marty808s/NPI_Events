@@ -187,7 +187,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Kvůli tomu že int 0 bere na empty TRUE...
     if (!isset($cena) || $cena === '') {
         errorBox("Cena musí být vyplněna!");
-        require INC . '/html_footer.php';
         exit;
     }
     
@@ -210,7 +209,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($requiredFields as $field) {
         if (empty($field)) {
             errorBox("Všechny pole musí být vyplněny!!");
-            require INC . '/html_footer.php';
             exit;
         }
     }
@@ -300,5 +298,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     errorBox("Vznikla chyba...");
     }
 }
-
+require INC . '/html_footer.php';
 ?>
+

@@ -177,12 +177,13 @@ function generateClicksReportByOrganizer($organizerName) {
     global $db_conn;
 
     // Příprava SQL dotazu pro získání počtu prokliků na kurzy podle zadaného organizátora
-    $stmt = $db_conn->prepare("SELECT nazev, zobrazeno FROM events WHERE organizator = ? ORDER BY zobrazeno DESC");
-    if (!$stmt) {
-        errorBox("Chyba při přípravě dotazu: " . $db_conn->error);
-        return;
+    if (isAdmin()) {
+        $stmt = $db_conn->prepare("SELECT nazev, zobrazeno FROM events ORDER BY zobrazeno DESC");
+    } else {
+        $stmt = $db_conn->prepare("SELECT nazev, zobrazeno FROM events WHERE organizator = ? ORDER BY zobrazeno DESC");
+        $stmt->bind_param('s', $organizerName);
     }
-    $stmt->bind_param('s', $organizerName);
+
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -191,7 +192,6 @@ function generateClicksReportByOrganizer($organizerName) {
     } else {
         return false;
     }
-
 }
 
 ?>

@@ -1,6 +1,7 @@
 <?php
 require '../../prolog.php';
 require PHP . '/db.php';
+require PHP . '/boxes.php';
 
 // Pokud kliknu na link, tak přičtu zobrazeno v DB
 if (isset($_GET['link'])) {
@@ -10,7 +11,6 @@ if (isset($_GET['link'])) {
         echo "<script>window.location.href='" . htmlspecialchars($link) . "';</script>";
         exit;
     } else {
-        errorBox('Chyba při zobrazení kurzu - špatný odkaz');
         echo "<script>setTimeout(function() { window.location.href = '../index.php'; }, 1000);</script>";
         exit;
     }

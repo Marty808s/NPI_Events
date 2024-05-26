@@ -10,6 +10,15 @@
       <odkaz>https://www.npi.cz/vzdelavani/15-vzdelavaci-programy/84544-ict-koordinator-studium-k-vykonu-specializovane-cinnosti-15</odkaz>
       <cena>30000</cena>
     </course>
+    <course>
+      <nazev>Studium pedagogiky</nazev>
+      <datum>2023-11-01</datum>
+      <forma>Prezenční</forma>
+      <lektor>Ing. Pavel Hrábě</lektor>
+      <anotace>Studium pedagogiky pro maturanty a příprava na pedagogickou praxi, která je bude určitě bavit :D!</anotace>
+      <odkaz>https://revize.edu.cz/ict-koordinator</odkaz>
+      <cena>80000</cena>
+    </course>
   </category>
   <category name="DIGI kurzy">
     <course>
@@ -20,6 +29,15 @@
       <anotace>Kurz zavádí účastníky do světa digitálního marketingu, včetně SEO a sociálních sítí.</anotace>
       <odkaz>http://www.digiacademy.cz/kurzy/digitalni-marketing</odkaz>
       <cena>0</cena>
+    </course>
+    <course>
+      <nazev>Úvod do programování v Pythonu</nazev>
+      <datum>2023-11-01</datum>
+      <forma>Prezenční</forma>
+      <lektor>Maria Černá</lektor>
+      <anotace>Intenzivní workshop zaměřený na základy programování v Pythonu, vhodný pro úplné začátečníky.</anotace>
+      <odkaz>http://www.example.com/python</odkaz>
+      <cena>4500</cena>
     </course>
   </category>
   <category name="Kmenové VP">
@@ -32,5 +50,6 @@
       <odkaz>http://www.vlada.cz/kurzy/adaptacevMS</odkaz>
       <cena>15000</cena>
     </course>
+    
   </category>
 </education>
