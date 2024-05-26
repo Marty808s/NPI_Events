@@ -7,7 +7,7 @@ services:
     volumes:
       - ./www:/var/www
     ports:
-      - 8000:80 # port 8000
+      - 8001:80 # port 8001
     depends_on:
       - database
 
