@@ -14,12 +14,14 @@ require PHP . '/boxes.php';
 </div>
 
 <?php
+// VYtvořím DOM, načtu events.xml
 $dom = new DOMDocument();
 $dom ->load(XML . '/events.xml');
 $dom->preserveWhiteSpace = false;
 
 echo '<div class="container mt-5 mb-5">';
 
+// Všechny kurzy vizualizuju jako div card
 $categories = $dom ->getElementsByTagName('category'); // Získám kategorie VP
 foreach ($categories as $category) {
     echo '<hr>';
@@ -46,7 +48,7 @@ foreach ($categories as $category) {
         // Anotace
         echo "<p class='card-text'>" . $course->getElementsByTagName('anotace')[0]->nodeValue . "</p>";
 
-        // Odkaz
+        // Odkaz - tady bude redirect přes onclick.php pro sbírání dat o návštěvnosti webu
         $link = $course->getElementsByTagName('odkaz')[0]->nodeValue;
         echo "<form action='php/onclick.php' method='get'>";
         echo "<input type='hidden' name='link' value='" . htmlspecialchars($link) . "'>";

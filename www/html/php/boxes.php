@@ -4,7 +4,7 @@ function successBox($param){
     echo ' <div class="container mt-5 mb-5" style="display:none;" id="successBox">';
     echo '<div class="alert alert-success" role="alert">' . $param . '</div>';
     echo '</div>';
-    echo '<script>$("#successBox").fadeIn();</script>';
+    echo '<script>$("#successBox").fadeIn();</script>'; // Fadein efekt JS
 }
 
 function errorBox($param){

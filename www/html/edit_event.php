@@ -5,10 +5,12 @@ require INC . '/html_nav.php';
 require PHP . '/db.php';
 require PHP . '/boxes.php';
 
+// Getnu 'id' kurzu z tlačítka, které volá danou akci
 if (isset($_GET['id'])){
     $eventId = $_GET['id'];
     $_SESSION['eventId'] = $eventId;
 
+    // Získám data z DB podle poskytnutého 'id'
     $eventData = getEventById($eventId);
 
     if ($eventData){
@@ -77,7 +79,7 @@ if (isset($_GET['id'])){
     }
 }
 
-//Logika
+//Logika zpracování
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $eventId = $_SESSION['eventId'];
@@ -100,17 +102,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $dom->formatOutput = true;
     $dom->load($filePath);
 
+    // Získám jednotlivé kategorie v DOM
     $categories = $dom->getElementsByTagName('category');
     foreach ($categories as $category) {
+        // Pro každou kategorii najdu její kurzy
         $courses = $category->getElementsByTagName('course');
         foreach ($courses as $course) {
+            //Pak iterativně zkontroluji jeho název a datum konání s těmi v DB
             $c_nazev = $course->getElementsByTagName('nazev')->item(0);
             //echo $c_nazev->nodeValue;
             $c_datum = $course->getElementsByTagName('datum')->item(0);
             //echo $c_datum->nodeValue;
 
+            // Pokud najdu v XML ten příslušný kurz i v DB.....
             if ($c_nazev->nodeValue === $eventData[0]['nazev'] && $c_datum->nodeValue === $eventData[0]['datum'] ) {
-                //echo "Našel jsem kurz!";
+                // Tak nahradíme jednotlivé nodaValues za ty z formuláře 
                 $c_nazev->nodeValue = $nazev;
                 $c_datum->nodeValue = $datum;
                 $course->getElementsByTagName('forma')->item(0)->nodeValue = $eduform;
@@ -118,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $course->getElementsByTagName('odkaz')->item(0)->nodeValue = $odkaz;
                 $course->getElementsByTagName('cena')->item(0)->nodeValue = $cena;
 
-                // AKtualizace DB
+                // AKtualizace na straně DB
                 $update = updateEvent($eventId, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena);
 
                 if ($update){

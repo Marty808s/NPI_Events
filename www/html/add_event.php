@@ -5,6 +5,7 @@ require INC . '/html_nav.php';
 require PHP . '/db.php';
 require PHP . '/boxes.php';
 
+//Pokud nejsi přihlášen, tak vypadni
 if (!isUser()){
     echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
     exit;
@@ -132,7 +133,9 @@ if (!isUser()){
     </form>
 </div>
 
+
 <script>
+//JS - datetimepickery - datum, čas od, čas do
 $(document).ready(function(){
     $('#datetimepicker-date').datetimepicker({
         format: 'DD/MM/YYYY'
@@ -144,6 +147,8 @@ $(document).ready(function(){
         format: 'HH:mm'
     });
 
+    // Pokud si vyberu více termínů, tak pickery schovám (celý signle term div) -> hodim multi-terms div
+        //zavoláno na zaškrtnutí checkboxu
     $('#multi-terms-checkbox').change(function() {
         if($(this).is(':checked')) {
             $('#multi-terms').show();

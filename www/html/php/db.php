@@ -1,15 +1,15 @@
 <?php
-// připojíme se na DB
+// Připojíme se na DB
 $servername = "database";
 $username = "admin";
 $password = "heslo";
 $database = "npi_events";
 
-// připojení na DB - working
+// Připojení na DB - working
 $db_conn = new mysqli($servername, $username, $password, $database);
 
 
-// posílánídotazů na DB - s parametry $sql - to je dotaz, na něj navážu parametry přes bind_param
+// Posílání dotazů na DB - s parametry $sql - to je dotaz, na něj navážu parametry přes bind_param
 function dbQuery($sql, $params = []) {
     global $db_conn;
 
@@ -43,7 +43,7 @@ function dbQuery($sql, $params = []) {
 }
 
 
-// získej eventy!
+// Získej eventy!
 function getEvents()
 {
     // pokud jsem admin dostavu všechny záznamy - od všech userů
@@ -55,7 +55,7 @@ function getEvents()
 }
 
 
-// získej event podle id
+// Získej event podle id
 function getEventById($id) {
     global $db_conn;
     $res = dbQuery("SELECT * FROM events WHERE id = ?", [$id]);
@@ -64,14 +64,14 @@ function getEventById($id) {
 }
 
 
-// smaž event z db podle id
+// Smaž event z db podle id
 function deleteEventById($id) {
     global $db_conn;
     return dbQuery("DELETE FROM events WHERE id = ?", [$id]);
 }
 
 
-// přidej event podle jednotlivých infromací - parametrů
+// Přidej event podle jednotlivých infromací - parametrů
 function addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena, $organizator) {
     $sql = "INSERT INTO events (kategorie, nazev, datum, forma, lektor, anotace, odkaz, cena, organizator) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [$category, $nazev, $form_date, $eduform, $lektor, $anotace, $prihlaseni, $cena, $organizator];
@@ -87,7 +87,7 @@ function addEvent($category, $nazev, $form_date, $eduform, $lektor, $anotace, $p
 }
 
 
-// aktualizuj event v db
+// Aktualizuj event v db
 function updateEvent($id, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena){
     $sql = "UPDATE events SET nazev = ?, datum = ?, forma = ?, lektor = ?, anotace = ?, odkaz = ?, cena = ? WHERE id = ?";
     $params = [$nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $cena, $id];
@@ -101,11 +101,11 @@ function updateEvent($id, $nazev, $datum, $eduform, $lektor, $anotace, $odkaz, $
 }
 
 
-// přidej usera / registruj ho
+// Přidej usera / registruj ho
 function registerUser($username, $hashedPassword) {
     global $db_conn;
 
-    // spočti mi počet uživatel v db s tímto jménem
+    // Spočti mi počet uživatel v db s tímto jménem
     $stmt = $db_conn->prepare("SELECT COUNT(*) FROM uzivatele WHERE jmeno = ?");
     if (!$stmt) {
         return false; 
@@ -116,7 +116,7 @@ function registerUser($username, $hashedPassword) {
     $stmt->fetch();
     $stmt->close();
 
-    // pokud jich je víc, vrať false - už je registrovaný
+    // Pokud jich je víc, vrať false - už je registrovaný
     if ($count > 0) {
         return false;
     }
@@ -132,11 +132,11 @@ function registerUser($username, $hashedPassword) {
 }
 
 
-// ověř uživatele - jeho údaje pro přihlášení
+// Ověř uživatele - jeho údaje pro přihlášení
 function authUser($username, $password) {
     global $db_conn;
 
-    // najdi heslo uzivatele ____
+    // Najdi heslo uzivatele ____
     $stmt = $db_conn->prepare("SELECT heslo FROM uzivatele WHERE jmeno = ?");
     if (!$stmt) {
         errorBox("Chyba při přípravě dotazu: " . $db_conn->error);
@@ -148,10 +148,11 @@ function authUser($username, $password) {
     $stmt->fetch();
     $stmt->close();
 
-    // vrať mi, jestli hesla sedí nebo ne (hashe), pokud ano, je to on!
+    // Vrať mi, jestli hesla sedí nebo ne (hashe), pokud ano, je to on!
     return password_verify($password, $hashedPasswordFromDb);
 }
 
+//Onclick funkce - přidej +1 zobrazeno v db pro daný odkaz (TO:DO - pokud budou duplicity? ošetřit!)
 function clickLink($link){
     global $db_conn;
     
@@ -171,10 +172,11 @@ function clickLink($link){
     }
 }
 
+// Příprava datasetu z DB pro vizualizaci prokliků kurzů organizátora
 function generateClicksReportByOrganizer($organizerName) {
     global $db_conn;
 
-    // příprava SQL dotazu pro získání počtu prokliků na kurzy podle zadaného organizátora
+    // Příprava SQL dotazu pro získání počtu prokliků na kurzy podle zadaného organizátora
     $stmt = $db_conn->prepare("SELECT nazev, zobrazeno FROM events WHERE organizator = ? ORDER BY zobrazeno DESC");
     if (!$stmt) {
         errorBox("Chyba při přípravě dotazu: " . $db_conn->error);

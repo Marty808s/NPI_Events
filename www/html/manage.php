@@ -5,11 +5,12 @@ require INC . '/html_nav.php';
 require PHP . '/db.php';
 require PHP . '/boxes.php';
 
+// Pokud nejsi přihlášen, tak už jdi
 if (!isUser()){
     echo "<script>setTimeout(function() { window.location.href = '/index.php'; }, 1000);</script>";
     exit;
 }
-$events = getEvents();
+$events = getEvents(); // Získáme eventy organizátora (uživatele)
 ?>
 
 <div class="container mt-5">
@@ -22,7 +23,7 @@ $events = getEvents();
                 <th>Cena</th>
                 <th>Forma</th>
 
-                <?php if (isAdmin()){
+                <?php if (isAdmin()){ //Admin uvidí i jednotlivé organizátory
                 echo "<th>Organizator</th>";
                 }?>
                 
@@ -31,6 +32,7 @@ $events = getEvents();
         </thead>
         <tbody>
         <?php
+        // Každý event vypíšu do tabulky
         foreach ($events as $event) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($event['nazev']) . "</td>";
@@ -54,8 +56,6 @@ $events = getEvents();
 </div>
 
 <?php
-
-$events = getEvents();
 
 // Načtení event.xml - DOM soubor
 $dom = new DOMDocument();

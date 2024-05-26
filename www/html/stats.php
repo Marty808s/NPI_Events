@@ -9,7 +9,7 @@ require PHP . '/db.php';
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
-// piechart
+// Piechart
 function createPieChart(labels, data) {
     var ctx = document.getElementById('chartCanvas').getContext('2d');
     var pieChart = new Chart(ctx, {
@@ -54,7 +54,7 @@ function createPieChart(labels, data) {
     return pieChart;
 }
 
-// barplot
+// Barplot
 function createBarPlot(labels, data) {
     var ctx = document.getElementById('chartCanvas2').getContext('2d');
     var barChart = new Chart(ctx, {
@@ -100,6 +100,7 @@ function createBarPlot(labels, data) {
 </script>
 
 <?php
+// Pokud jsi přihlášen, tak stáhneme data o tvých kurzech pro report
 if (isUser()){
     $name = $_SESSION['jmeno'];
     $data = generateClicksReportByOrganizer($name);
@@ -122,6 +123,7 @@ if (isUser()){
                 <canvas id="chartCanvas2" style="max-width: 600px; max-height: 400px;"></canvas>
             </div>
             <script>
+                // Tvorba grafů
                 document.addEventListener('DOMContentLoaded', function() {
                     var labels = <?php echo json_encode($labels); ?>;
                     var data = <?php echo json_encode($counts); ?>;
@@ -136,7 +138,7 @@ if (isUser()){
                 <th>Zobrazeno</th>
             </tr>
             <?php foreach ($data as $row) { ?>
-                <tr>
+                <tr> <!--Tabulka pro přehled:-->
                     <td><?php echo $row['nazev']; ?></td>
                     <td><?php echo $row['zobrazeno']; ?></td>
                 </tr>

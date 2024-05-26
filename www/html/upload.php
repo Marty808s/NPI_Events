@@ -35,15 +35,19 @@ if (!isUser()){
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["xmlFile"])) {
+    // Místo pro ukládání uploaded souborů
     $targetDirectory = XML . '/upload/';
+    // Celá cesta pro konečné umístění souboru...
     $targetFile = $targetDirectory . basename($_FILES["xmlFile"]["name"]);
+    // Přípona souboru
     $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-
+    
     if ($fileType != "xml") {
         errorBox("Omlouváme se, jsou povoleny pouze XML soubory.");
         return;
     }
 
+    // Přesun nahraného souboru do cílového adresáře
     if (move_uploaded_file($_FILES["xmlFile"]["tmp_name"], $targetFile)) {
         $dom_upload = new DOMDocument();
         $dom_upload->load($targetFile);
@@ -53,8 +57,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["xmlFile"])) {
         $eventsDOM->formatOutput = true;
         $eventsDOM->load(XML . '/events.xml');
 
+        libxml_use_internal_errors(true);
+
+        //Pokud to projde validací tak:
         if ($dom_upload->schemaValidate(XML . '/validate.xsd')) {
+            // Získání kurzů z nahraného souboru
             $uploadedCourses = $dom_upload->getElementsByTagName('course');
+            // Projde kurzy a definuje elementy (hodnoty) pro vložení do DB
             foreach ($uploadedCourses as $uploadedCourse) {
                 // Aby neřvalo - použít ->item(0)->nodeValue
                 $nazev = $uploadedCourse->getElementsByTagName('nazev')[0]->textContent;
@@ -64,9 +73,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["xmlFile"])) {
                 $anotace = $uploadedCourse->getElementsByTagName('anotace')[0]->textContent;
                 $odkaz = $uploadedCourse->getElementsByTagName('odkaz')[0]->textContent;
                 $cena = $uploadedCourse->getElementsByTagName('cena')[0]->textContent;
-                $category = $uploadedCourse->parentNode->getAttribute('name'); // Předpokládáme, že <course> je přímo pod <category>
+                $category = $uploadedCourse->parentNode->getAttribute('name');
 
                 $categoryNode = null;
+                // Projdeme kategorie events.xml pro následný importNode
                 foreach ($eventsDOM->getElementsByTagName('category') as $cat) {
                     if ($cat->getAttribute('name') === $category) {
                         $categoryNode = $cat;
@@ -75,7 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["xmlFile"])) {
                 }
 
                 // Zápis od XML events
+                    // Importuju nový kurz jako Node
                 $newCourse = $eventsDOM->importNode($uploadedCourse, true);
+                    // Přidám nov kurz do příslušné kategorie v events.xml
                 $categoryNode->appendChild($newCourse);
 
                 
@@ -87,18 +99,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["xmlFile"])) {
                 }
 
             }
-
+            // Uložení souboru po všech zápisech
             $eventsDOM->save(XML . '/events.xml');
             successBox("Soubor byl úspěšně nahrán a kurzy přidány do příslušných kategorií a databáze.");
             echo "<script>setTimeout(function() { window.location.href = '/manage.php'; }, 1000);</script>";
 
         } else {
-            errorBox("Nahrávaný soubor nevyhovuje požadovanému schématu.");
+            // Vypsáni chyby schématu:
+            $errorDetails = libxml_get_last_error();
+            if ($errorDetails) {
+                $errorMessage = "Nahrávaný soubor nevyhovuje požadovanému schématu. Chyba: " . $errorDetails->message . " na řádku " . $errorDetails->line;
+                errorBox($errorMessage);
+            } else {
+                errorBox("Došlo k chybě při validaci XML souboru.");
+            }
         }
 
     } else {
         errorBox("Nastala chyba při nahrávání souboru.");
     }
 }
+// Vyčistíme výstup z Validate funkce - necháme jen errorbox
+libxml_clear_errors();
+
 
 require INC . '/html_footer.php';
+
