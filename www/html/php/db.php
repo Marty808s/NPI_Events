@@ -21,7 +21,7 @@ function dbQuery($sql, $params = []) {
         return false;
     }
 
-    // pokud nezadám parametry ani dotaz
+    // pokud nezadám parametry ani dotaz - dochází k navazáí parametrů na dotaz
     if ($params && $stmt->bind_param(str_repeat("s", count($params)), ...$params) === false) {
         error_log("Chyba při vázání parametrů: " . $stmt->error);
         return false;
